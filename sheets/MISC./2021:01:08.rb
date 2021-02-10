@@ -9,7 +9,7 @@ end
 
 set_mixer_control! hpf: 0, hpf_slide: 0
 set_mixer_control! lpf: 130
-set_mixer_control! amp: 1, amp_slide: 8
+set_mixer_control! amp: 1, amp_slide: 0
 
 set :chord_progression, [:d2]
 
@@ -23,7 +23,7 @@ with_fx :reverb, room: 0.5 do
       n2 = [0,0,0,7, 2,4,0,1, 5,2,0,1, 5,4,0,2].shuffle.tick(:note2)
       notes = scale(cp, :minor)[n1]
       notes_2 = scale(cp, :minor)[n2]
-      ##| notes = scale(cp, :minor).shuffle.tick(:note)
+      ##| notes = scale(cp, :minor).shuffle.tick(:note）
       
       with_fx :compressor, amp: 1.5 do
         with_fx :hpf, cutoff: 0, cutoff_slide: 32 do
@@ -32,7 +32,7 @@ with_fx :reverb, room: 0.5 do
             release: 0.1,
             amp: choose([0, 2]),
             ##| amp: 0,
-            res: (range 0, 0.9, step: 0.05).shuffle.tick(:res),
+            res: (range 0, 2, step: 0.05).shuffle.tick(:res),
             ##| res: 0.9,
             ##| cutoff: (range 60, 130, stsep: 0.05).mirror.tick(:cutoff),
             pan: (range -1, 1, step: 0.25).mirror.tick(:pan),
@@ -58,7 +58,7 @@ end
 
 live_loop :ground, sync: :metro do
   use_bpm get[:bpm]
-  stop
+  ##| stop
   cp = get[:chord_progression].tick(:cp)
   n = [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0].tick(:n)
   notes = scale(cp, :minor)[n]
